@@ -86,4 +86,5 @@ def predict(request):
         raise ValueError("Not enough historical data for selected combination.")
 
 
-    return float(prediction)
+    return int(round(prediction))
+
