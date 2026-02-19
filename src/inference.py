@@ -1,10 +1,12 @@
 import pandas as pd
 import joblib
 from datetime import datetime
+import os
 
-MODEL_PATH = "models/random_forest_v1.pkl"
-FEATURE_PATH = "models/feature_columns.pkl"
-DATA_PATH = "data/processed/clean_sales_data.csv"
+
+MODEL_PATH = os.path.join(os.path.dirname(__file__), "..", "models", "random_forest_v1.pkl")
+FEATURE_PATH = os.path.join(os.path.dirname(__file__), "..", "models", "feature_columns.pkl")
+DATA_PATH = os.path.join(os.path.dirname(__file__), "..", "data", "processed", "clean_sales_data.csv")
 
 model = joblib.load(MODEL_PATH)
 feature_columns = joblib.load(FEATURE_PATH)
@@ -30,6 +32,10 @@ def predict(request):
 
     if product_history.empty:
         raise ValueError("No historical data for selected combination.")
+    
+    if len(product_history) < 4:
+        raise ValueError("Not enough historical data for selected combination.")
+
 
 
     # Compute lag features
