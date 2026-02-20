@@ -11,7 +11,26 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 from src.inference import predict
 
 
-DATA_PATH = "../data/processed/clean_sales_data.csv"
+import streamlit as st
+import pandas as pd
+from datetime import datetime
+import sys
+import os
+
+# Get project root directory
+BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+
+# Allow importing from src
+sys.path.append(BASE_DIR)
+
+from src.inference import predict
+
+# Absolute path to CSV
+DATA_PATH = os.path.join(BASE_DIR, "data", "processed", "clean_sales_data.csv")
+
+df = pd.read_csv(DATA_PATH)
+df["Date"] = pd.to_datetime(df["Date"])
+
 df = pd.read_csv(DATA_PATH)
 df["Date"] = pd.to_datetime(df["Date"])
 
